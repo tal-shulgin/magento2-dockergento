@@ -1,6 +1,6 @@
-MAGENTO_DIR="."
-COMPOSER_DIR="."
-BIN_DIR="./vendor/bin"
+MAGENTO_DIR="./magento"
+COMPOSER_DIR="./magento"
+BIN_DIR="/magento/vendor/bin"
 GENERATED_DIR="generated" # Set to "var/generation" for magento >=2.1
 
 HOST_DIR="."

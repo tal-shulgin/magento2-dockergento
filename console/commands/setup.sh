@@ -55,7 +55,8 @@ if [ "${MAGENTO_DIR}" != "." ]; then
     MAGENTO_DIR=$(sanitize_path "${MAGENTO_DIR}")
     printf "${YELLOW}"
     echo "------ ${DOCKER_COMPOSE_FILE} ------"
-	sed_in_file "s#/html/var/composer_home#/html/${MAGENTO_DIR}/var/composer_home#gw /dev/stdout" "${DOCKER_COMPOSE_FILE}"
+	# sed_in_file "s#/html/var/composer_home#/html/${MAGENTO_DIR}/var/composer_home#gw /dev/stdout" "${DOCKER_COMPOSE_FILE}"
+  sed_in_file "s#.:/var/www/html#./${MAGENTO_DIR}:/var/www/html#gw /dev/stdout" "${DOCKER_COMPOSE_FILE_LINUX}"
 	echo "--------------------"
     echo "------ ${DOCKER_COMPOSE_FILE_MAC} ------"
 	sed_in_file "s#/app:#/${MAGENTO_DIR}/app:#gw /dev/stdout" "${DOCKER_COMPOSE_FILE_MAC}"
