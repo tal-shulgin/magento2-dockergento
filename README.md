@@ -1,3 +1,4 @@
+```
 # Magento 2 Dockergento
 
 Plug and play Magento 2 dev environments with docker. **Fastest performance ever** on Mac and Linux.
@@ -51,22 +52,22 @@ Follow the installation steps for your system.
 
 <details>
 <summary>Mac</summary>
-	
+
 1. Install Docker on [Mac](https://docs.docker.com/docker-for-mac/install/)
 
 2. Configure `File Sharing` settings for the folder that contains your projects
 
 	![File Sharing Configuration](docs/img/file_sharing.png)
-	
+
 3. Optionally you can also apply these performance tweaks
 
 	* [http://markshust.com/2018/01/30/performance-tuning-docker-mac](http://markshust.com/2018/01/30/performance-tuning-docker-mac)
 
 </details>
-	
+
 <details>
 <summary>Linux</summary>
-	
+
 1. Install docker
 
 	* Install Docker on [Debian](https://docs.docker.com/engine/installation/linux/docker-ce/debian/)
@@ -74,7 +75,7 @@ Follow the installation steps for your system.
 	* Install Docker on [CentOS](https://docs.docker.com/engine/installation/linux/docker-ce/centos/)
 
 2. Configure permissions
-	
+
 	* [Manage Docker as a non-root user](https://docs.docker.com/install/linux/linux-postinstall/)
 
 </details>
@@ -92,7 +93,7 @@ Follow the installation steps for your system.
     ```
     sudo ln -s $(pwd)/magento2-dockergento/bin/dockergento /usr/local/bin/
     ```
-    
+  
 3. Open a new terminal tab/window and check that `dockergento` works
 
 	```
@@ -108,28 +109,28 @@ Follow the installation steps for your system.
 Depending the type of project, you can use one of the following setups:
 
 ### Dockerize existing project
-
 ```
+
 cd <your_project>
 dockergento setup
-```
 
+```
 ### New project
-
 ```
+
 mkdir <new_project_name> && cd <new_project_name>
 dockergento setup
 dockergento create-project
-```
 
+```
 ### Magento 2 github for contribution
 **Disclaimer:** Performance on Mac is slower here due to the huge amount of files in `app` (~20.000 files)
 
 <details>
 <summary>Workaround to improve performance on Mac</summary>
-	
+
 1. Remove these lines on `docker-compose.dev.mac.yml`
-    
+  
     ```
         - ./app:/var/www/html/app:delegated
         - ./dev:/var/www/html/dev:delegated
@@ -139,7 +140,7 @@ dockergento create-project
     ```
  
 2. Sync `app` using `unison` container. Add this in `docker-compose.dev.mac.yml`
-     
+   
     ```
     unison:
       volumes:
@@ -158,28 +159,50 @@ dockergento create-project
 	```
 	dockergento watch app/code/Magento/<module_name>
 	```
-    
+  
 </details>
-
 ```
+
 git clone https://github.com/magento/magento2.git
 cd magento2
 dockergento setup
-```
 
+```
 ---
 
 ## Usage
 
-### Start Application
+### Installing Magento 2.4
+
+For a new store with Magento 2.4, you will need to install Magento via the command line before you can use it. Follow the instructions at https://devdocs.magento.com/guides/v2.4/install-gde/install-quick-ref.html, using `db` as the database host and `elasticsearch` as the Elasticsearch host.
+
+For example:
+```
+
+dockergento magento setup:install --base-url=http://local.magento.com --db-host=db --db-name=magento --db-user=magento --db-password=magento
+--admin-firstname=Magento --admin-lastname=User --admin-email=user@example.com
+--admin-user=admin --admin-password=admin123 --language=en_US
+--currency=USD --timezone=America/Chicago --use-rewrites=1
+--elasticsearch-host=elasticsearch
 
 ```
+Make a note of the admin URL it prints out, e.g. `[SUCCESS]: Magento Admin URI: /admin_5gdsve`.
+
+You also need to disable 2FA, as the Docker image is not configured to send the necessary email:
+
+`dockergento bin/magento module:disable Magento_TwoFactorAuth`
+
+You can now access your admin at http://<your-domain>/<admin_uri> e.g. http://127.0.0.1/admin_5gdsve and login with the details you gave on the command line, e.g. admin/admin123.
+
+### Start Application
+```
+
 dockergento start
 dockergento composer install
 sudo vim /etc/hosts
 // Add -> 127.0.0.1 <your-domain>
-```
 
+```
 Open `http://<your-domain>` in the browser 🎉
 
 ### Workflow
@@ -234,3 +257,9 @@ This project has been possible thanks to the following resources:
 
 ## Copyright
 (c) ModestCoders
+
+| col1 | col2 | col3 |
+| --- | --- | --- |
+|  |  |  |
+|  |  |  |
+```
